@@ -1,13 +1,114 @@
+import "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
 import React, { useState, useEffect, useCallback } from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import * as Font from "expo-font";
 import CustomTextNoto from "./Components/Text/CustomTextNoto";
+import { NavigationContainer } from "@react-navigation/native";
+import { Asset } from "expo-asset";
+import {
+  createStackNavigator,
+  TransitionPresets,
+} from "@react-navigation/stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import HomeScreen from "./screens/tabscreens/Home";
+import MoreScreen from "./screens/tabscreens/More";
+import DownloadsScreen from "./screens/tabscreens/Downloads";
+import ComingSoonScreen from "./screens/tabscreens/ComingSoon";
+import SearchScreen from "./screens/tabscreens/Search";
+import Colors from "./Constants/Colors";
+import {
+  MaterialIcons,
+  MaterialCommunityIcons,
+  AntDesign,
+  Entypo,
+  Ionicons,
+} from "@expo/vector-icons";
+
+// Setting up the navigation ....
+const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
+
+// Function for all the tabs in the app.
+// The tab is passed to the main naviogatuion consumer in the main App function
+function Tabs() {
+  return (
+    <Tab.Navigator
+      initialRouteName="Home"
+      // Using custom colors so it can easily be updated with useContext later
+      backgroundColor={Colors.darkGrey}
+
+      tabBarOptions={{
+        activeTintColor: Colors.white,
+        inactiveTintColor: "grey",
+        backgroundColor: Colors.darkGrey,
+        activeBackgroundColor: Colors.darkGrey,
+        inactiveBackgroundColor: Colors.darkGrey,
+        style: styles.tabBarStyles
+      }}
+    >
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          tabBarLabel: "Home",
+          tabBarIcon: ({ focused }) => {
+            let color = focused ? Colors.white : "grey";
+            return <Entypo name="home" size={24} color={color} />;
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Search"
+        component={SearchScreen}
+        options={{
+          tabBarLabel: "Search",
+          tabBarIcon: ({ focused }) => {
+            let color = focused ? Colors.white : "grey";
+            return <Entypo name="bar-graph" size={24} color={color} />;
+          },
+        }}
+      />
+      <Tab.Screen
+        name="More"
+        component={MoreScreen}
+        options={{
+          tabBarLabel: "More",
+          tabBarIcon: ({ focused }) => {
+            let color = focused ? Colors.white : "grey";
+            return <Entypo name="bar-graph" size={24} color={color} />;
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Downloads"
+        component={DownloadsScreen}
+        options={{
+          tabBarLabel: "Downloads",
+          tabBarIcon: ({ focused }) => {
+            let color = focused ? Colors.white : "grey";
+            return <Entypo name="bar-graph" size={24} color={color} />;
+          },
+        }}
+      />
+      <Tab.Screen
+        name="ComingSoon"
+        component={ComingSoonScreen}
+        options={{
+          tabBarLabel: "Coming Soon",
+          tabBarIcon: ({ focused }) => {
+            let color = focused ? Colors.white : "grey";
+            return <Entypo name="bar-graph" size={24} color={color} />;
+          },
+        }}
+      />
+    </Tab.Navigator>
+  );
+}
 
 // First code the splash screen load assets and images.
 // Finally,
-
 export default function App() {
   const [count, setCount] = useState(10);
   // Initailize the app as not ready so we can know when to render the app and close the splash scren
@@ -50,25 +151,22 @@ export default function App() {
     return null;
   } else {
     return (
-      <View style={styles.container}>
-        <Text> Your Code {count} </Text>
-        <StatusBar style="auto" />
-        <Button
-          title="Ayomide"
-          onPress={() => {
-            console.log("pressed oooooo");
-            setCount((prev) => prev * 2);
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false,
+            // gestureEnabled: true,
+            // gestureDirection: "horizontal",
+            // ...TransitionPresets.SlideFromRightIOS,
+            // transitionSpec: {
+            //   open: config,
+            //   close: closeConfig,
+            // },
           }}
-        />
-        <CustomTextNoto
-        font='bold'
         >
-          Hey guys
-        </CustomTextNoto>
-        <Text>
-          Hey guys
-        </Text>
-      </View>
+          <Stack.Screen name="Home" component={Tabs} />
+        </Stack.Navigator>
+      </NavigationContainer>
     );
   }
 }
@@ -80,4 +178,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  tabBarStyles:{
+    borderTopWidth: 0,
+  
+  }
 });
