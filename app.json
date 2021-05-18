@@ -4,6 +4,16 @@
     "slug": "my_movies",
     "version": "1.0.0",
     "orientation": "portrait",
+    
+      "androidNavigationBar": {
+ 
+        "visible": true,
+
+        "barStyle": "light-content",
+    
+        "backgroundColor": "#171717"
+      }
+    ,
     "icon": "./assets/icon.png",
       "androidStatusBar": {
         "translucent": false,

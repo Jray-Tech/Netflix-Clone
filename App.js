@@ -21,9 +21,11 @@ import Colors from "./Constants/Colors";
 import {
   MaterialIcons,
   MaterialCommunityIcons,
+  Feather,
   AntDesign,
   Entypo,
   Ionicons,
+  FontAwesome,
 } from "@expo/vector-icons";
 
 // Setting up the navigation ....
@@ -38,14 +40,13 @@ function Tabs() {
       initialRouteName="Home"
       // Using custom colors so it can easily be updated with useContext later
       backgroundColor={Colors.darkGrey}
-
       tabBarOptions={{
         activeTintColor: Colors.white,
         inactiveTintColor: "grey",
         backgroundColor: Colors.darkGrey,
         activeBackgroundColor: Colors.darkGrey,
         inactiveBackgroundColor: Colors.darkGrey,
-        style: styles.tabBarStyles
+        style: styles.tabBarStyles,
       }}
     >
       <Tab.Screen
@@ -66,21 +67,11 @@ function Tabs() {
           tabBarLabel: "Search",
           tabBarIcon: ({ focused }) => {
             let color = focused ? Colors.white : "grey";
-            return <Entypo name="bar-graph" size={24} color={color} />;
+            return <FontAwesome name="search" size={24} color={color} />;
           },
         }}
       />
-      <Tab.Screen
-        name="More"
-        component={MoreScreen}
-        options={{
-          tabBarLabel: "More",
-          tabBarIcon: ({ focused }) => {
-            let color = focused ? Colors.white : "grey";
-            return <Entypo name="bar-graph" size={24} color={color} />;
-          },
-        }}
-      />
+
       <Tab.Screen
         name="Downloads"
         component={DownloadsScreen}
@@ -88,7 +79,7 @@ function Tabs() {
           tabBarLabel: "Downloads",
           tabBarIcon: ({ focused }) => {
             let color = focused ? Colors.white : "grey";
-            return <Entypo name="bar-graph" size={24} color={color} />;
+            return <AntDesign name="download" size={24} color={color} />;
           },
         }}
       />
@@ -99,7 +90,18 @@ function Tabs() {
           tabBarLabel: "Coming Soon",
           tabBarIcon: ({ focused }) => {
             let color = focused ? Colors.white : "grey";
-            return <Entypo name="bar-graph" size={24} color={color} />;
+            return <Ionicons name="md-play" size={24} color={color} />;
+          },
+        }}
+      />
+      <Tab.Screen
+        name="More"
+        component={MoreScreen}
+        options={{
+          tabBarLabel: "More",
+          tabBarIcon: ({ focused }) => {
+            let color = focused ? Colors.white : "grey";
+            return <Feather name="menu" size={24} color={color} />;
           },
         }}
       />
@@ -178,8 +180,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  tabBarStyles:{
+  tabBarStyles: {
     borderTopWidth: 0,
-  
-  }
+  },
 });
